@@ -27,6 +27,8 @@ You need to have rust installed on your system, you can use rustup.sh for this.
 
 ## Usage
 
+Easier way is to add the --script flag at the end, this outputs a script, go to theme generator, make sure preview is off, refresh the page before or after just to make sure, then paste the outputted script in console, run it then turn on preview and should work, else you can do it manually without the --script flag like below.
+
 1. Prepare your theme JSON data in a file. Ensure it's structured correctly; it should contain only the theme data wrapped in braces `{...}`.
   
 2. Convert your theme data:
