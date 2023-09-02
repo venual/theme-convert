@@ -33,9 +33,10 @@ struct Theme {
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-    /// Name of the person to greet
     #[arg(short, long)]
     file: PathBuf,
+    #[arg(short, long)]
+    as_script: bool,
 }
 
 fn rgb_to_hex(rgb: &str) -> String {
@@ -101,10 +102,15 @@ fn main() {
         border_base: raw_data["--theme-border-base"].clone(),
     };
 
-    let converted_json = serde_json::to_string_pretty(&theme).unwrap();
+    let converted_json = serde_json::to_string(&theme).unwrap();
 
-    // Optionally: Clear the console
-    print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
-
-    println!("{}", converted_json);
+    if args.as_script {
+        let script = format!(
+            "localStorage.setItem('storeThemGenForm', '{}');",
+            converted_json
+        );
+        println!("{}", script);
+    } else {
+        println!("{}", converted_json);
+    }
 }
